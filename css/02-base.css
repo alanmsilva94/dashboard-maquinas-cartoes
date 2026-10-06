@@ -1,0 +1,183 @@
+/* =========================================================================
+   02-base.css — reset, tipografia, ícones, botões e pequenos elementos
+   ========================================================================= */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--fundo);
+  color: var(--texto);
+  font: 400 14px/1.45 var(--fonte);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+[hidden] { display: none !important; }
+
+h1, h2, h3, h4, p { margin: 0; }
+h1, h2, h3, h4 { font-family: var(--fonte-titulo); color: var(--texto); letter-spacing: -.015em; }
+
+button, input, select { font: inherit; color: inherit; }
+button { cursor: pointer; }
+button:disabled { cursor: not-allowed; }
+
+code {
+  padding: 1px 5px;
+  border-radius: 4px;
+  background: rgba(27, 28, 26, .06);
+  font: 600 12px/1.4 ui-monospace, "Cascadia Mono", Consolas, monospace;
+}
+
+:focus-visible { outline: none; box-shadow: var(--foco); border-radius: var(--r-sm); }
+
+.num, .tabular { font-variant-numeric: tabular-nums; }
+
+.skip-link {
+  position: absolute;
+  left: var(--e4);
+  top: -60px;
+  z-index: 200;
+  padding: var(--e2) var(--e4);
+  border-radius: var(--r-sm);
+  background: var(--primaria);
+  color: #fff;
+  font-weight: 700;
+  text-decoration: none;
+}
+.skip-link:focus { top: var(--e4); }
+
+/* ------------------------------------------------------------ ícones SVG
+   Os desenhos ficam no <svg> de símbolos do index.html: funciona offline. */
+.ico {
+  width: 18px;
+  height: 18px;
+  flex: 0 0 auto;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.9;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.ico-sm { width: 15px; height: 15px; }
+.ico-lg { width: 22px; height: 22px; }
+
+/* ------------------------------------------------------------ botões */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--e2);
+  min-height: 38px;
+  padding: 0 14px;
+  border: 1px solid transparent;
+  border-radius: var(--r-sm);
+  font-weight: 600;
+  line-height: 1;
+  white-space: nowrap;
+  transition: background .15s, border-color .15s, color .15s, box-shadow .15s, transform .05s;
+}
+.btn:active:not(:disabled) { transform: translateY(1px); }
+.btn:disabled { opacity: .45; }
+
+.btn-primario {
+  background: var(--primaria);
+  color: #fff;
+  box-shadow: 0 1px 2px rgba(174, 50, 0, .25);
+}
+.btn-primario:hover:not(:disabled) { background: var(--primaria-hover); }
+
+.btn-secundario {
+  background: var(--superficie);
+  border-color: var(--linha);
+  color: var(--texto);
+  box-shadow: var(--sombra-1);
+}
+.btn-secundario:hover:not(:disabled) { background: var(--superficie-2); border-color: var(--linha-forte); }
+.btn-secundario .ico { color: var(--texto-2); }
+
+.btn-suave {
+  background: var(--superficie-2);
+  color: var(--texto);
+}
+.btn-suave:hover:not(:disabled) { background: var(--superficie-4); }
+.btn-suave .ico { color: var(--texto-2); }
+
+.btn-link {
+  min-height: 0;
+  padding: 4px 6px;
+  background: none;
+  color: var(--primaria-forte);
+  font-weight: 700;
+}
+.btn-link:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+.btn-perigo {
+  min-height: 32px;
+  padding: 0 8px;
+  background: none;
+  color: var(--erro);
+  font-size: 13px;
+}
+.btn-perigo:hover { background: var(--erro-suave); }
+
+.btn-grande { min-height: 46px; padding: 0 22px; font-size: 15px; border-radius: 10px; }
+.btn-bloco { width: 100%; }
+
+.icon-btn {
+  display: inline-grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: none;
+  color: var(--texto-2);
+}
+.icon-btn:hover { background: var(--superficie-3); color: var(--texto); }
+
+/* ------------------------------------------------------------ selos */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: var(--superficie-3);
+  color: var(--texto-2);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.badge.is-warn { background: #FCEBC5; color: var(--alerta-forte); }
+.badge.is-ok { background: var(--sucesso-suave); color: var(--sucesso); }
+.badge.is-marca { background: var(--primaria-suave); color: var(--primaria-forte); }
+
+.rotulo-caps {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  color: var(--texto-2);
+}
+
+/* barra de progresso fina (KPIs e tabela) */
+.progresso {
+  position: relative;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--superficie-3);
+  overflow: hidden;
+}
+.progresso > i {
+  position: absolute;
+  inset: 0 auto 0 0;
+  border-radius: inherit;
+  background: var(--primaria);
+}

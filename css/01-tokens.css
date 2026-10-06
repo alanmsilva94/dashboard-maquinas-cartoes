@@ -1,0 +1,94 @@
+/* =========================================================================
+   01-tokens.css — identidade visual (cores, tipografia, espaços, sombras)
+
+   Trocar a identidade do painel = editar SÓ este arquivo. Os gráficos leem
+   estas mesmas variáveis em tempo de execução (js/views/GraficoView.js).
+   Fontes embutidas em vendor/fonts para funcionar sem internet.
+   ========================================================================= */
+
+@font-face { font-family: "Manrope"; font-weight: 600; font-display: swap; src: url("../vendor/fonts/manrope-latin-600-normal.woff2") format("woff2"); }
+@font-face { font-family: "Manrope"; font-weight: 700; font-display: swap; src: url("../vendor/fonts/manrope-latin-700-normal.woff2") format("woff2"); }
+@font-face { font-family: "Manrope"; font-weight: 800; font-display: swap; src: url("../vendor/fonts/manrope-latin-800-normal.woff2") format("woff2"); }
+@font-face { font-family: "Source Sans 3"; font-weight: 400; font-display: swap; src: url("../vendor/fonts/source-sans-3-latin-400-normal.woff2") format("woff2"); }
+@font-face { font-family: "Source Sans 3"; font-weight: 600; font-display: swap; src: url("../vendor/fonts/source-sans-3-latin-600-normal.woff2") format("woff2"); }
+@font-face { font-family: "Source Sans 3"; font-weight: 700; font-display: swap; src: url("../vendor/fonts/source-sans-3-latin-700-normal.woff2") format("woff2"); }
+
+:root {
+  /* ---------------------------------------------------------- marca */
+  --primaria: #FF5A1F;          /* Laranja Sinal: botão primário, item ativo, destaque */
+  --primaria-hover: #E54814;
+  --primaria-forte: #AE3200;    /* texto laranja sobre fundo claro (contraste AA) */
+  --primaria-suave: #FFE9E0;
+  --primaria-borda: #FFC7B2;
+
+  /* ---------------------------------------------------------- superfícies */
+  --fundo: #FAF9F6;             /* área de conteúdo */
+  --superficie: #FFFFFF;        /* cards */
+  --superficie-2: #F4F3F0;      /* campos, linhas de destaque */
+  --superficie-3: #EFEEEB;
+  --superficie-4: #E9E8E5;
+  --linha: #E6E4DF;             /* bordas e grade dos gráficos */
+  --linha-forte: #D6D3CC;
+
+  /* menu lateral */
+  --lateral: #22272B;
+  --lateral-2: #2D3338;
+  --lateral-texto: #C4CBD2;
+  --lateral-texto-2: #8D969E;
+
+  /* ---------------------------------------------------------- texto */
+  --texto: #1B1C1A;
+  --texto-2: #555F6B;
+  --texto-3: #838C95;
+  --texto-invertido: #FFFFFF;
+
+  /* ---------------------------------------------------------- estados (reservados) */
+  --sucesso: #19785D;
+  --sucesso-suave: #E6F3EE;
+  --alerta: #B97000;
+  --alerta-forte: #7A4A00;
+  --alerta-suave: #FFF6E0;
+  --alerta-borda: #F2D9A2;
+  --erro: #BA1A1A;
+  --erro-suave: #FDECEA;
+
+  /* ---------------------------------------------------------- gráficos
+     Paleta categórica validada (contraste e daltonismo) — a ordem é fixa:
+     a mesma categoria mantém a mesma cor quando os filtros mudam. */
+  --serie-1: #E8531A;
+  --serie-2: #2A6FC9;
+  --serie-3: #159F74;
+  --serie-4: #7A4FC4;
+  --serie-5: #D9578A;
+  --serie-6: #3E8A18;
+  --serie-7: #2B9FD0;
+  --serie-8: #B9363B;
+  --serie-neutra: #C9CDD2;     /* "Outros", "Inativos", restante */
+  --serie-linha: #1F2A33;      /* linhas de tendência */
+  --medida-qtd: #4F5D6B;       /* barras de quantidade (a receita usa --primaria) */
+
+  /* ---------------------------------------------------------- tipografia */
+  --fonte: "Source Sans 3", "Segoe UI", system-ui, -apple-system, Arial, sans-serif;
+  --fonte-titulo: "Manrope", "Segoe UI", system-ui, -apple-system, Arial, sans-serif;
+
+  /* ---------------------------------------------------------- espaço e forma */
+  --e1: 4px;
+  --e2: 8px;
+  --e3: 12px;
+  --e4: 16px;
+  --e5: 24px;
+  --e6: 32px;
+
+  --r-sm: 8px;
+  --r-md: 12px;
+  --r-lg: 14px;
+  --r-xl: 18px;
+
+  --sombra-1: 0 1px 2px rgba(27, 28, 26, .05), 0 1px 3px rgba(27, 28, 26, .04);
+  --sombra-2: 0 4px 14px rgba(27, 28, 26, .07), 0 1px 3px rgba(27, 28, 26, .05);
+  --sombra-3: 0 18px 48px rgba(17, 22, 27, .18), 0 4px 12px rgba(17, 22, 27, .08);
+
+  --lateral-largura: 260px;
+  --lateral-recolhida: 76px;
+  --foco: 0 0 0 3px rgba(255, 90, 31, .28);
+}

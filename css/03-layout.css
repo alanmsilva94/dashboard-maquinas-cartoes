@@ -1,0 +1,261 @@
+/* =========================================================================
+   03-layout.css — moldura: menu lateral, cabeçalho, grades e faixas de tela
+   ========================================================================= */
+
+.app { min-height: 100vh; }
+
+/* ------------------------------------------------------------ menu lateral */
+.lateral {
+  position: fixed;
+  inset: 0 auto 0 0;
+  z-index: 60;
+  display: flex;
+  flex-direction: column;
+  width: var(--lateral-largura);
+  padding: var(--e4) var(--e3);
+  background: var(--lateral);
+  color: var(--lateral-texto);
+  transition: width .22s ease, transform .25s ease;
+}
+
+.marca {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 44px;
+  padding: 0 var(--e1) 0 6px;
+  margin-bottom: var(--e5);
+}
+.marca-logo { width: 34px; height: 34px; flex: 0 0 auto; }
+.brand-text { display: flex; flex-direction: column; min-width: 0; flex: 1; }
+.brand-text strong {
+  overflow: hidden;
+  color: #fff;
+  font: 700 13.5px/1.2 var(--fonte-titulo);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.brand-text small {
+  margin-top: 2px;
+  color: var(--lateral-texto-2);
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+.brand-toggle {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  border: 0;
+  border-radius: var(--r-sm);
+  background: none;
+  color: var(--lateral-texto-2);
+}
+.brand-toggle:hover { background: var(--lateral-2); color: #fff; }
+.brand-toggle .ico { transition: transform .2s; }
+
+.nav { display: flex; flex-direction: column; gap: 4px; }
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: var(--e3);
+  min-height: 42px;
+  padding: 0 var(--e3);
+  border: 0;
+  border-radius: 10px;
+  background: none;
+  color: var(--lateral-texto);
+  font-size: 14.5px;
+  font-weight: 600;
+  text-align: left;
+  transition: background .15s, color .15s;
+}
+.nav-item:hover { background: var(--lateral-2); color: #fff; }
+.nav-item.is-active {
+  background: var(--primaria);
+  color: #fff;
+  box-shadow: 0 4px 14px rgba(255, 90, 31, .28);
+}
+.nav-txt { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+.lateral-rodape {
+  display: flex;
+  flex-direction: column;
+  gap: var(--e2);
+  margin-top: auto;
+  padding-top: var(--e4);
+  border-top: 1px solid rgba(255, 255, 255, .08);
+}
+.lateral-nota { color: var(--lateral-texto-2); font-size: 12.5px; text-align: center; }
+.lateral-meta {
+  color: var(--lateral-texto-2);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .04em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+/* recolhido (desktop): só ícones */
+body.sidebar-collapsed .lateral { width: var(--lateral-recolhida); }
+body.sidebar-collapsed .brand-text,
+body.sidebar-collapsed .nav-txt,
+body.sidebar-collapsed .lateral-nota,
+body.sidebar-collapsed .lateral-meta { display: none; }
+body.sidebar-collapsed .marca { flex-direction: column; height: auto; gap: var(--e2); padding: 0; }
+body.sidebar-collapsed .brand-toggle .ico { transform: rotate(180deg); }
+body.sidebar-collapsed .nav-item { justify-content: center; padding: 0; }
+body.sidebar-collapsed .lateral-rodape .btn { padding: 0; }
+
+/* ------------------------------------------------------------ área principal */
+.principal {
+  min-width: 0;
+  margin-left: var(--lateral-largura);
+  transition: margin-left .22s ease;
+}
+body.sidebar-collapsed .principal { margin-left: var(--lateral-recolhida); }
+
+.conteudo-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: var(--e5);
+  width: 100%;
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: var(--e6) var(--e6) 56px;
+}
+
+/* barra do celular (só aparece nas telas pequenas) */
+.barra-movel {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  display: none;
+  align-items: center;
+  gap: var(--e3);
+  height: 56px;
+  padding: 0 var(--e4);
+  background: rgba(250, 249, 246, .86);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 1px 0 var(--linha);
+}
+.barra-movel strong { font: 700 15px var(--fonte-titulo); }
+.barra-movel .marca-logo { width: 28px; height: 28px; }
+
+.fundo-menu {
+  position: fixed;
+  inset: 0;
+  z-index: 55;
+  display: none;
+  background: rgba(17, 22, 27, .42);
+  backdrop-filter: blur(2px);
+}
+
+/* ------------------------------------------------------------ cabeçalho da página */
+.cabecalho {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--e4);
+}
+.cabecalho-titulo { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.cabecalho-linha { display: flex; flex-wrap: wrap; align-items: center; gap: var(--e3); }
+.cabecalho h1 { font-size: 28px; font-weight: 800; line-height: 1.15; letter-spacing: -.025em; }
+.cabecalho-sub { color: var(--texto-2); font-size: 15px; }
+.cabecalho-acoes { display: flex; flex-wrap: wrap; gap: var(--e2); }
+
+/* selo de status: "2.200 transações no filtro · jan/26 a abr/26 · pasta" */
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  max-width: 100%;
+  padding: 5px 12px 5px 10px;
+  border-radius: 999px;
+  background: var(--sucesso-suave);
+  color: var(--sucesso);
+  font-size: 13px;
+  font-weight: 700;
+}
+.status-dot {
+  position: relative;
+  width: 8px;
+  height: 8px;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  background: currentColor;
+}
+.status-pill.is-ok .status-dot::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: currentColor;
+  animation: pulso 2s ease-out infinite;
+}
+.status-pill.is-atencao { background: var(--alerta-suave); color: var(--alerta-forte); }
+.status-fonte {
+  overflow: hidden;
+  color: inherit;
+  font-weight: 600;
+  opacity: .72;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+@keyframes pulso { from { transform: scale(1); opacity: .6; } to { transform: scale(2.6); opacity: 0; } }
+
+/* ------------------------------------------------------------ grades */
+.page { display: flex; flex-direction: column; gap: var(--e5); }
+.kpi-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--e4); }
+.grid-graficos { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: var(--e4); }
+.col-6 { grid-column: span 6; }
+.col-12 { grid-column: span 12; }
+
+/* tela de espera: nada de filtros, avisos ou páginas */
+body.sem-dados .page,
+body.sem-dados .filtros,
+body.sem-dados .avisos,
+body.sem-dados .status-pill,
+body.sem-dados .lateral-meta { display: none !important; }
+body:not(.sem-dados) .page-vazio { display: none; }
+
+/* ------------------------------------------------------------ faixas de tela */
+@media (max-width: 1360px) {
+  .conteudo-wrap { padding: var(--e5) var(--e5) 48px; }
+}
+
+@media (max-width: 1180px) {
+  .kpi-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .col-6 { grid-column: span 12; }
+}
+
+/* menu vira gaveta */
+@media (max-width: 1024px) {
+  .barra-movel { display: flex; }
+  .principal,
+  body.sidebar-collapsed .principal { margin-left: 0; }
+  .lateral,
+  body.sidebar-collapsed .lateral { width: var(--lateral-largura); transform: translateX(-100%); }
+  body.sidebar-collapsed .brand-text,
+  body.sidebar-collapsed .nav-txt,
+  body.sidebar-collapsed .lateral-nota,
+  body.sidebar-collapsed .lateral-meta { display: revert; }
+  body.menu-aberto .lateral { transform: none; box-shadow: var(--sombra-3); }
+  body.menu-aberto .fundo-menu { display: block; }
+  .brand-toggle .ico { transform: rotate(0); }
+}
+
+@media (max-width: 640px) {
+  .conteudo-wrap { gap: var(--e4); padding: var(--e4) var(--e4) 40px; }
+  .cabecalho h1 { font-size: 23px; }
+  .cabecalho-acoes { width: 100%; }
+  .cabecalho-acoes .btn { flex: 1; }
+  .kpi-grid { grid-template-columns: minmax(0, 1fr); gap: var(--e3); }
+  .grid-graficos { gap: var(--e3); }
+  .status-fonte { display: none; }
+}
