@@ -1,0 +1,17 @@
+# dados reais nunca devem ser versionados
+bd/
+dados_reais/
+*.xlsx
+*.xls
+*.csv
+*.json.gz
+!dados_exemplo/*.xlsx
+
+.env
+.env.*
+__pycache__/
+*.pyc
+.vscode/
+.idea/
+Thumbs.db
+.DS_Store

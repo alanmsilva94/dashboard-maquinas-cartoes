@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dashboard - Máquinas de Cartões</title>
+
+<!-- ================================================================ VIEW: estilos
+     01-tokens define a identidade (cores, fontes, sombras): trocar o tema é
+     editar só esse arquivo. Os demais usam apenas as variáveis dele. -->
+<link rel="stylesheet" href="css/01-tokens.css">
+<link rel="stylesheet" href="css/02-base.css">
+<link rel="stylesheet" href="css/03-layout.css">
+<link rel="stylesheet" href="css/04-componentes.css">
+<link rel="stylesheet" href="css/05-telas.css">
+</head>
+<body class="sem-dados">
+
+<!-- ================================================================ ícones (offline)
+     Uso: <svg class="ico"><use href="#i-nome"/></svg> -->
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
+  <symbol id="i-receita" viewBox="0 0 24 24"><path d="M4 19V5M4 19h16M8 15v-4M12 15V8M16 15v-6"/></symbol>
+  <symbol id="i-local" viewBox="0 0 24 24"><path d="M12 21s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></symbol>
+  <symbol id="i-mapa" viewBox="0 0 24 24"><path d="M3 6.5l6-2.5 6 2.5 6-2.5v13.5l-6 2.5-6-2.5-6 2.5zM9 4v13.5M15 6.5V20"/></symbol>
+  <symbol id="i-sync" viewBox="0 0 24 24"><path d="M20 11a8 8 0 1 0-2.3 5.7M20 5v6h-6"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+  <symbol id="i-chev-esq" viewBox="0 0 24 24"><path d="M14 7l-5 5 5 5"/></symbol>
+  <symbol id="i-chev-dir" viewBox="0 0 24 24"><path d="M10 7l5 5-5 5"/></symbol>
+  <symbol id="i-chev-baixo" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5"/></symbol>
+  <symbol id="i-filtro" viewBox="0 0 24 24"><path d="M4 6h16M7 12h10M10 18h4"/></symbol>
+  <symbol id="i-calendario" viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4"/></symbol>
+  <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></symbol>
+  <symbol id="i-imprimir" viewBox="0 0 24 24"><path d="M7 9V4h10v5M7 17H5a1 1 0 0 1-1-1v-5a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v5a1 1 0 0 1-1 1h-2M7 14h10v6H7z"/></symbol>
+  <symbol id="i-alerta" viewBox="0 0 24 24"><path d="M10.3 4.2L2.6 18a2 2 0 0 0 1.7 3h15.4a2 2 0 0 0 1.7-3L13.7 4.2a2 2 0 0 0-3.4 0zM12 9.5v4M12 17h.01"/></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></symbol>
+  <symbol id="i-seta" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-fechar" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+  <symbol id="i-pasta" viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></symbol>
+  <symbol id="i-arquivo" viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8zM14 3v5h5"/></symbol>
+  <symbol id="i-upload" viewBox="0 0 24 24"><path d="M12 16V5M7 10l5-5 5 5M5 20h14"/></symbol>
+  <symbol id="i-lixeira" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13M10 11v6M14 11v6"/></symbol>
+  <symbol id="i-escudo" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8.5 12.5l2.5 2.5 4.5-5"/></symbol>
+  <symbol id="i-busca" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></symbol>
+  <symbol id="i-expandir" viewBox="0 0 24 24"><path d="M8 9l4-4 4 4M8 15l4 4 4-4"/></symbol>
+  <symbol id="i-dinheiro" viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="2"/><circle cx="12" cy="12" r="2.6"/><path d="M6.5 9.5v.01M17.5 14.5v.01"/></symbol>
+  <symbol id="i-transacoes" viewBox="0 0 24 24"><path d="M7 7h13M16 3l4 4-4 4M17 17H4M8 13l-4 4 4 4"/></symbol>
+  <symbol id="i-ticket" viewBox="0 0 24 24"><path d="M5 3h14v18l-3-2-2 2-2-2-2 2-2-2-3 2zM9 8h6M9 12h4"/></symbol>
+  <symbol id="i-maquina" viewBox="0 0 24 24"><rect x="6" y="2.5" width="12" height="19" rx="2.5"/><path d="M9 6h6v4H9zM9.5 14h.01M12 14h.01M14.5 14h.01M9.5 17h.01M12 17h.01M14.5 17h.01"/></symbol>
+  <symbol id="i-igreja" viewBox="0 0 24 24"><path d="M12 2v4M10 4h4M6 21V11l6-5 6 5v10M10 21v-5h4v5M3 21h18"/></symbol>
+  <symbol id="i-ativo" viewBox="0 0 24 24"><path d="M21 12h-4l-3 8-4-16-3 8H3"/></symbol>
+  <symbol id="i-cidade" viewBox="0 0 24 24"><path d="M3 21h18M5 21V8l7-4v17M19 21V11l-7-3M8 10h.01M8 13h.01M8 16h.01M15.5 13h.01M15.5 16h.01"/></symbol>
+  <symbol id="i-trofeu" viewBox="0 0 24 24"><path d="M8 4h8v5a4 4 0 0 1-8 0zM8 6H5.5a2 2 0 0 0 0 4H8M16 6h2.5a2 2 0 0 1 0 4H16M12 13v4M8.5 21h7M10 17h4v4h-4z"/></symbol>
+  <symbol id="i-media" viewBox="0 0 24 24"><path d="M4 20h16M7 16v-5M12 16V7M17 16v-3"/></symbol>
+  <symbol id="i-logo" viewBox="0 0 40 40"><rect width="40" height="40" rx="11" fill="#FF5A1F" stroke="none"/><rect x="11" y="8" width="18" height="24" rx="3.5" fill="none" stroke="#fff" stroke-width="2.4"/><rect x="14.5" y="12" width="11" height="6" rx="1.4" fill="#fff" stroke="none"/><path d="M15.5 23.5h.01M20 23.5h.01M24.5 23.5h.01M15.5 27.5h.01M20 27.5h.01M24.5 27.5h.01" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/></symbol>
+</svg>
+
+<a class="skip-link" href="#conteudo">Ir para o conteúdo</a>
+
+<div class="app">
+
+  <!-- ===================================================== menu lateral -->
+  <aside class="lateral" id="lateral" aria-label="Navegação">
+    <div class="marca">
+      <svg class="marca-logo" aria-hidden="true"><use href="#i-logo"/></svg>
+      <div class="brand-text">
+        <strong>Máquinas de Cartões</strong>
+        <small>Painel de receita</small>
+      </div>
+      <button class="brand-toggle" type="button" id="btnRecolher" aria-label="Recolher menu" title="Recolher menu">
+        <svg class="ico"><use href="#i-chev-esq"/></svg>
+      </button>
+    </div>
+
+    <nav class="nav" aria-label="Páginas">
+      <button class="nav-item is-active" type="button" data-pagina="p1"
+              data-titulo="Análise de Receita" title="Análise de Receita"
+              data-descricao="Receita capturada, volume transacionado e comportamento mensal.">
+        <svg class="ico" aria-hidden="true"><use href="#i-receita"/></svg>
+        <span class="nav-txt">Análise de Receita</span>
+      </button>
+      <button class="nav-item" type="button" data-pagina="p2"
+              data-titulo="PDV por Localidade" title="PDV por Localidade"
+              data-descricao="Cobertura do parque instalado, utilização e desempenho por região.">
+        <svg class="ico" aria-hidden="true"><use href="#i-local"/></svg>
+        <span class="nav-txt">PDV por Localidade</span>
+      </button>
+      <button class="nav-item" type="button" data-pagina="p3"
+              data-titulo="Consulta por Estado" title="Consulta por Estado"
+              data-descricao="Transações e receita por estado, com abertura por município.">
+        <svg class="ico" aria-hidden="true"><use href="#i-mapa"/></svg>
+        <span class="nav-txt">Consulta por Estado</span>
+      </button>
+    </nav>
+
+    <div class="lateral-rodape">
+      <button class="btn btn-primario btn-bloco" type="button" id="btnAtualizarDados" title="Atualizar dados">
+        <svg class="ico" aria-hidden="true"><use href="#i-sync"/></svg>
+        <span class="nav-txt">Atualizar dados</span>
+      </button>
+      <p class="lateral-nota">Leia as planilhas direto da pasta da rede</p>
+      <p class="lateral-meta">Dados de <span data-geracao>—</span></p>
+    </div>
+  </aside>
+  <div class="fundo-menu" id="fundoMenu"></div>
+
+  <!-- ======================================================== conteúdo -->
+  <div class="principal">
+
+    <header class="barra-movel">
+      <button class="icon-btn" type="button" id="btnMenu" aria-label="Abrir menu">
+        <svg class="ico"><use href="#i-menu"/></svg>
+      </button>
+      <svg class="marca-logo" aria-hidden="true"><use href="#i-logo"/></svg>
+      <strong>Máquinas de Cartões</strong>
+    </header>
+
+    <div class="conteudo-wrap">
+
+      <header class="cabecalho">
+        <div class="cabecalho-titulo">
+          <div class="cabecalho-linha">
+            <h1 id="tituloPagina">Análise de Receita</h1>
+            <span class="status-pill is-ok" id="statusPill">
+              <span class="status-dot"></span>
+              <span id="statusTexto">—</span>
+              <span class="status-fonte" id="statusFonte"></span>
+            </span>
+          </div>
+          <p class="cabecalho-sub" id="descricaoPagina">Receita capturada, volume transacionado e comportamento mensal.</p>
+        </div>
+        <div class="cabecalho-acoes">
+          <button class="btn btn-secundario" type="button" id="exportarCsv">
+            <svg class="ico"><use href="#i-download"/></svg> Exportar CSV
+          </button>
+          <button class="btn btn-secundario" type="button" id="imprimir">
+            <svg class="ico"><use href="#i-imprimir"/></svg> Imprimir
+          </button>
+        </div>
+      </header>
+
+      <!-- ------------------------------------------------ barra de filtros -->
+      <section class="card filtros" aria-label="Filtros">
+        <div class="filtro-linha">
+          <button class="btn btn-filtro" type="button" id="btnFiltros" aria-expanded="true" aria-controls="filtroPainel">
+            <svg class="ico"><use href="#i-filtro"/></svg>
+            Filtros
+            <span class="btn-caret" aria-hidden="true"><svg class="ico ico-sm"><use href="#i-chev-baixo"/></svg></span>
+          </button>
+          <div class="filtro-painel" id="filtroPainel">
+            <div class="filtro-campos" id="filtroCampos"></div>
+            <div class="filtro-periodo">
+              <svg class="ico ico-sm" aria-hidden="true"><use href="#i-calendario"/></svg>
+              <label for="mesDe">De <select id="mesDe"></select></label>
+              <label for="mesAte">até <select id="mesAte"></select></label>
+            </div>
+          </div>
+        </div>
+        <div class="filtro-ativos">
+          <span class="rotulo-caps">Filtros ativos:</span>
+          <div class="chips" id="chips" aria-live="polite"></div>
+          <button class="btn btn-link" type="button" id="limparTudo" hidden>Limpar tudo</button>
+        </div>
+      </section>
+
+      <div class="avisos" id="avisoHost"></div>
+
+      <main id="conteudo">
+
+        <!-- ============================ relatório em espera (sem base) -->
+        <section class="page-vazio" aria-label="Aguardando base de dados">
+          <div class="vazio-fundo" aria-hidden="true">
+            <div class="vazio-kpis">
+              <div class="esqueleto"><i style="width:45%"></i><i class="grande"></i><i style="width:70%"></i></div>
+              <div class="esqueleto"><i style="width:40%"></i><i class="grande"></i><i style="width:60%"></i></div>
+              <div class="esqueleto"><i style="width:35%"></i><i class="grande"></i><i style="width:65%"></i></div>
+              <div class="esqueleto"><i style="width:50%"></i><i class="grande"></i><i style="width:55%"></i></div>
+            </div>
+            <div class="vazio-graficos">
+              <div class="esqueleto"><i style="width:30%"></i>
+                <div class="esqueleto-colunas"><b style="height:40%"></b><b style="height:58%"></b><b style="height:72%"></b><b style="height:50%"></b><b style="height:86%"></b><b style="height:66%"></b><b style="height:92%"></b><b style="height:60%"></b></div>
+              </div>
+              <div class="esqueleto"><i style="width:45%"></i><div class="esqueleto-rosca"></div><i></i><i style="width:70%"></i></div>
+            </div>
+          </div>
+
+          <div class="vazio-card">
+            <div class="vazio-topo">
+              <div class="vazio-marca">
+                <span class="tile-ico"><svg class="ico ico-lg"><use href="#i-pasta"/></svg></span>
+                <span class="rotulo-caps">Máquinas de Cartões</span>
+              </div>
+              <span class="badge is-marca">Relatório</span>
+            </div>
+            <h2>Importe a base para montar o painel.</h2>
+            <p>
+              Nenhum número aparece antes da leitura das planilhas. Escolha a pasta com os arquivos
+              mensais <code>.xlsx</code> e as três análises são calculadas na hora.
+            </p>
+            <div class="lista-abas">
+              <div class="lista-abas-topo">
+                <span class="rotulo-caps">Abas esperadas em cada planilha</span>
+                <span>4 abas</span>
+              </div>
+              <div class="abas">
+                <span><svg class="ico ico-sm"><use href="#i-check"/></svg>Unidades</span>
+                <span><svg class="ico ico-sm"><use href="#i-check"/></svg>Maquinas</span>
+                <span><svg class="ico ico-sm"><use href="#i-check"/></svg>Cartões</span>
+                <span><svg class="ico ico-sm"><use href="#i-check"/></svg>Pix</span>
+              </div>
+            </div>
+            <div class="zona-soltar" data-zona-soltar tabindex="0" role="button" aria-label="Soltar a pasta ou as planilhas aqui">
+              <span class="zona-ico"><svg class="ico ico-lg"><use href="#i-upload"/></svg></span>
+              <strong>Arraste a pasta ou as planilhas aqui</strong>
+              <small>ou clique para escolher no computador</small>
+            </div>
+            <button class="btn btn-primario btn-grande btn-bloco" type="button" id="btnImportar">
+              <svg class="ico"><use href="#i-pasta"/></svg> Importar base de dados
+            </button>
+            <p class="selo-privacidade">
+              <svg class="ico ico-sm"><use href="#i-escudo"/></svg>
+              Tudo é calculado no seu navegador. Os dados não saem da sua máquina.
+            </p>
+          </div>
+        </section>
+
+        <!-- ================================================== Página 1 -->
+        <section class="page" id="p1" aria-label="Análise de Receita">
+          <div class="kpi-grid">
+            <article class="kpi-card is-destaque">
+              <div class="kpi-topo"><h3>Receita total</h3><span class="kpi-ico"><svg class="ico"><use href="#i-dinheiro"/></svg></span></div>
+              <p class="kpi-valor" id="kpiReceita">—</p>
+              <div class="kpi-extra" id="kpiReceitaExtra"></div>
+              <p class="kpi-sub" id="kpiReceitaApoio"></p>
+            </article>
+            <article class="kpi-card">
+              <div class="kpi-topo"><h3>Total de transações</h3><span class="kpi-ico"><svg class="ico"><use href="#i-transacoes"/></svg></span></div>
+              <p class="kpi-valor" id="kpiTransacoes">—</p>
+              <div class="kpi-extra" id="kpiTransacoesExtra"></div>
+              <p class="kpi-sub" id="kpiTransacoesApoio"></p>
+            </article>
+            <article class="kpi-card">
+              <div class="kpi-topo"><h3>Ticket médio</h3><span class="kpi-ico"><svg class="ico"><use href="#i-ticket"/></svg></span></div>
+              <p class="kpi-valor" id="kpiTicket">—</p>
+              <div class="kpi-extra" id="kpiTicketExtra"></div>
+              <p class="kpi-sub" id="kpiTicketApoio"></p>
+            </article>
+            <article class="kpi-card">
+              <div class="kpi-topo"><h3>Máquinas com movimento</h3><span class="kpi-ico"><svg class="ico"><use href="#i-maquina"/></svg></span></div>
+              <p class="kpi-valor" id="kpiPdvComMovimento">—</p>
+              <div class="kpi-extra" id="kpiPdvComMovimentoExtra"></div>
+              <p class="kpi-sub" id="kpiPdvComMovimentoApoio"></p>
+            </article>
+          </div>
+
+          <div class="grid-graficos">
+            <article class="chart-card col-6">
+              <header><h3>Composição da receita por tipo</h3><p>Participação de cada modalidade na receita aprovada</p></header>
+              <div class="chart-corpo">
+                <div class="chart-canvas" id="gReceitaTipoPct"></div>
+                <div class="chart-legenda" id="lgReceitaTipoPct"></div>
+              </div>
+            </article>
+            <article class="chart-card col-6">
+              <header><h3>Composição da receita por bandeira</h3><p>Participação de cada bandeira na receita aprovada</p></header>
+              <div class="chart-corpo">
+                <div class="chart-canvas" id="gReceitaBandeiraPct"></div>
+                <div class="chart-legenda" id="lgReceitaBandeiraPct"></div>
+              </div>
+            </article>
+            <article class="chart-card col-6">
+              <header><h3>Receita por tipo</h3><p>Valor capturado por modalidade no período</p></header>
+              <div class="chart-corpo"><div class="chart-canvas" id="gReceitaTipo"></div></div>
+            </article>
+            <article class="chart-card col-6">
+              <header><h3>Transações por tipo</h3><p>Quantidade de transações; aprovação e movimentação no tooltip</p></header>
+              <div class="chart-corpo"><div class="chart-canvas" id="gMovimentacaoTipo"></div></div>
+            </article>
+            <article class="chart-card col-6">
+              <header><h3>Transações por mês</h3><p>Aprovadas e não aprovadas, empilhadas</p></header>
+              <div class="chart-corpo"><div class="chart-canvas" id="gTransacoesMes"></div></div>
+            </article>
+            <article class="chart-card col-6">
+              <header><h3>Receita mensal</h3><p>Evolução da receita aprovada — arraste para dar zoom</p></header>
+              <div class="chart-corpo"><div class="chart-canvas" id="gReceitaMensal"></div></div>
+            </article>
+          </div>
+        </section>
+
+        <!-- ================================================== Página 2 -->
+        <section class="page" id="p2" aria-label="PDV por Localidade" hidden>
+          <div class="kpi-grid">
+            <article class="kpi-card is-destaque">
+              <div class="kpi-topo"><h3>Quantidade de PDVs</h3><span class="kpi-ico"><svg class="ico"><use href="#i-maquina"/></svg></span></div>
+              <p class="kpi-valor" id="kpiQtdPdv">—</p>
+              <div class="kpi-extra" id="kpiQtdPdvExtra"></div>
+              <p class="kpi-sub" id="kpiQtdPdvApoio"></p>
+            </article>
+            <article class="kpi-card">
+              <div class="kpi-topo"><h3>Unidades com PDVs</h3><span class="kpi-ico"><svg class="ico"><use href="#i-igreja"/></svg></span></div>
+              <p class="kpi-valor" id="kpiQtdIgrejas">—</p>
+              <p class="kpi-sub" id="kpiQtdIgrejasApoio"></p>
+            </article>
+            <article class="kpi-card">
+              <div class="kpi-topo"><h3>PDVs ativos no período</h3><span class="kpi-ico"><svg class="ico"><use href="#i-ativo"/></svg></span></div>
+              <p class="kpi-valor" id="kpiPdvsAtivos">—</p>
+              <div class="kpi-extra" id="kpiPdvsAtivosExtra"></div>
+              <p class="kpi-sub" id="kpiPdvsAtivosApoio"></p>
+            </article>
+            <article class="kpi-card">
+              <div class="kpi-topo"><h3>Receita por máquina</h3><span class="kpi-ico"><svg class="ico"><use href="#i-dinheiro"/></svg></span></div>
+              <p class="kpi-valor" id="kpiReceitaPorMaquina">—</p>
+              <p class="kpi-sub" id="kpiReceitaPorMaquinaApoio"></p>
+            </article>
+          </div>
+
+          <div class="grid-graficos">
+            <article class="chart-card col-6">
+              <header><h3>PDVs ativos e inativos</h3><p>Ativo = máquina com pelo menos uma transação aprovada no período</p></header>
+              <div class="chart-corpo">
+                <div class="chart-canvas" id="gPdvAtivoInativo"></div>
+                <div class="chart-legenda" id="lgPdvAtivoInativo"></div>
+              </div>
+            </article>
+            <article class="chart-card col-6">
+              <header><h3>Máquinas por região</h3><p>Distribuição do parque instalado</p></header>
+              <div class="chart-corpo">
+                <div class="chart-canvas" id="gMaquinasRegiao"></div>
+                <div class="chart-legenda" id="lgMaquinasRegiao"></div>
+              </div>
+            </article>
+            <article class="chart-card col-6">
+              <header><h3>Receita por região</h3><p>Receita aprovada acumulada no período</p></header>
+              <div class="chart-corpo"><div class="chart-canvas" id="gReceitaRegiao"></div></div>
+            </article>
+            <article class="chart-card col-6">
+              <header><h3>Transações por região</h3><p>Volume de transações no período</p></header>
+              <div class="chart-corpo"><div class="chart-canvas" id="gTransacoesRegiao"></div></div>
+            </article>
+            <article class="chart-card col-6">
+              <header><h3>Receita por descrição de unidade</h3><p>Perfil da unidade no cadastro — máquinas e ticket no tooltip</p></header>
+              <div class="chart-corpo"><div class="chart-canvas" id="gReceitaDescIgreja"></div></div>
+            </article>
+            <article class="chart-card col-6">
+              <header><h3>Máquinas por descrição de unidade</h3><p>Como o parque se distribui entre os perfis</p></header>
+              <div class="chart-corpo">
+                <div class="chart-canvas" id="gMaquinasDescIgreja"></div>
+                <div class="chart-legenda" id="lgMaquinasDescIgreja"></div>
+              </div>
+            </article>
+            <article class="chart-card col-12">
+              <header><h3>Distribuição regional de máquinas</h3><p>Participação de cada região no total de máquinas do filtro</p></header>
+              <div class="chart-corpo"><div class="mini-roscas" id="miniRoscas"></div></div>
+            </article>
+            <article class="chart-card col-12">
+              <header><h3>Utilização mensal do parque</h3><p>% das máquinas do filtro com movimento no mês — a quantidade está no tooltip</p></header>
+              <div class="chart-corpo"><div class="chart-canvas is-alta" id="gUtilizacaoMensal"></div></div>
+            </article>
+          </div>
+        </section>
+
+        <!-- ================================================== Página 3 -->
+        <section class="page" id="p3" aria-label="Consulta por Estado" hidden>
+          <div class="kpi-grid">
+            <article class="kpi-card is-destaque">
+              <div class="kpi-topo"><h3>Estados atendidos</h3><span class="kpi-ico"><svg class="ico"><use href="#i-mapa"/></svg></span></div>
+              <p class="kpi-valor" id="kpiEstados">—</p>
+              <p class="kpi-sub" id="kpiEstadosApoio"></p>
+            </article>
+            <article class="kpi-card">
+              <div class="kpi-topo"><h3>Municípios atendidos</h3><span class="kpi-ico"><svg class="ico"><use href="#i-cidade"/></svg></span></div>
+              <p class="kpi-valor" id="kpiMunicipios">—</p>
+              <p class="kpi-sub" id="kpiMunicipiosApoio"></p>
+            </article>
+            <article class="kpi-card">
+              <div class="kpi-topo"><h3>Estado líder em receita</h3><span class="kpi-ico"><svg class="ico"><use href="#i-trofeu"/></svg></span></div>
+              <p class="kpi-valor is-marca" id="kpiEstadoLider">—</p>
+              <p class="kpi-sub" id="kpiEstadoLiderApoio"></p>
+            </article>
+            <article class="kpi-card">
+              <div class="kpi-topo"><h3>Receita média por estado</h3><span class="kpi-ico"><svg class="ico"><use href="#i-media"/></svg></span></div>
+              <p class="kpi-valor" id="kpiReceitaMediaEstado">—</p>
+              <p class="kpi-sub" id="kpiReceitaMediaEstadoApoio"></p>
+            </article>
+          </div>
+
+          <div class="grid-graficos">
+            <article class="chart-card col-12">
+              <header><h3>Receita por estado</h3><p>Receita aprovada; transações, PDVs e ticket médio no tooltip</p></header>
+              <div class="chart-corpo"><div class="chart-canvas is-alta" id="gEstados"></div></div>
+            </article>
+
+            <article class="chart-card col-12 tem-ferramentas">
+              <header>
+                <div>
+                  <h3>Tabela dinâmica por estado</h3>
+                  <p>Clique no estado para abrir os municípios; clique no cabeçalho para ordenar</p>
+                </div>
+                <div class="tabela-ferramentas">
+                  <label class="busca">
+                    <svg class="ico ico-sm" aria-hidden="true"><use href="#i-busca"/></svg>
+                    <input type="search" id="buscaEstados" placeholder="Buscar estado ou município…" aria-label="Buscar estado ou município">
+                  </label>
+                  <button class="btn btn-suave" type="button" id="btnAbrirTodos">
+                    <svg class="ico ico-sm"><use href="#i-expandir"/></svg>
+                    <span id="btnAbrirTodosTexto">Abrir todos</span>
+                  </button>
+                </div>
+              </header>
+              <div class="tabela-wrap">
+                <table class="tabela" id="tabelaEstados">
+                  <thead>
+                    <tr>
+                      <th scope="col" data-ordenar="nome">Estado <span class="seta">▼</span></th>
+                      <th scope="col" class="num" data-ordenar="pdvs">PDVs <span class="seta">▼</span></th>
+                      <th scope="col" class="num" data-ordenar="igrejas">Unidades <span class="seta">▼</span></th>
+                      <th scope="col" class="num" data-ordenar="transacoes">Transações <span class="seta">▼</span></th>
+                      <th scope="col" class="num" data-ordenar="receita">Receita <span class="seta">▼</span></th>
+                      <th scope="col" class="num" data-ordenar="ticket">Ticket médio <span class="seta">▼</span></th>
+                      <th scope="col" class="col-barra">Participação</th>
+                    </tr>
+                  </thead>
+                  <tbody id="tabelaEstadosCorpo"></tbody>
+                  <tfoot id="tabelaEstadosRodape"></tfoot>
+                </table>
+              </div>
+              <p class="tabela-rodape">
+                <strong>Receita</strong> soma apenas transações aprovadas; <strong>Transações</strong> conta
+                todas as do filtro. PDVs sem Estado no cadastro — ou sem igreja correspondente — ficam na
+                linha <strong>Sem localidade</strong>, fora do ranking e do gráfico, mas dentro dos totais.
+                A busca só esconde linhas: os totais continuam valendo para o filtro inteiro.
+              </p>
+            </article>
+          </div>
+        </section>
+
+      </main>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================ janela: atualizar dados -->
+<div class="modal" id="modalDados" hidden>
+  <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modalTitulo">
+    <div class="modal-topo">
+      <span class="tile-ico"><svg class="ico ico-lg"><use href="#i-sync"/></svg></span>
+      <div>
+        <h2 id="modalTitulo">Atualizar dados</h2>
+        <p>Leitura das planilhas mensais, direto no navegador</p>
+      </div>
+      <button class="icon-btn" type="button" id="btnFecharModal" aria-label="Fechar">
+        <svg class="ico"><use href="#i-fechar"/></svg>
+      </button>
+    </div>
+
+    <div class="modal-corpo">
+      <div class="modal-dica">
+        <svg class="ico" aria-hidden="true"><use href="#i-info"/></svg>
+        <p>
+          Por segurança, o navegador não abre uma pasta a partir de um caminho digitado: escolha-a
+          no seletor do Windows ou arraste-a para cá. Depois, <strong>Reler pasta</strong> traz os
+          arquivos novos que você colocar lá.
+        </p>
+      </div>
+
+      <button class="btn btn-primario btn-grande btn-bloco" type="button" id="btnEscolherPasta">
+        <svg class="ico"><use href="#i-pasta"/></svg> Escolher pasta
+      </button>
+
+      <div class="zona-soltar is-compacta" data-zona-soltar tabindex="0" role="button" aria-label="Soltar a pasta ou as planilhas aqui">
+        <span class="zona-ico"><svg class="ico"><use href="#i-upload"/></svg></span>
+        <small>ou arraste a pasta / as planilhas para cá</small>
+      </div>
+
+      <div class="acoes-grade">
+        <button class="btn btn-suave" type="button" id="btnRelerPasta" hidden>
+          <svg class="ico ico-sm"><use href="#i-sync"/></svg> Reler pasta
+        </button>
+        <button class="btn btn-suave" type="button" id="btnAbrirBase">
+          <svg class="ico ico-sm"><use href="#i-arquivo"/></svg> Abrir arquivo de base
+        </button>
+        <button class="btn btn-suave" type="button" id="btnExportarBase" hidden>
+          <svg class="ico ico-sm"><use href="#i-download"/></svg> Exportar base
+        </button>
+      </div>
+
+      <input type="file" id="inputPasta" accept=".xlsx,.xls" multiple webkitdirectory directory class="input-oculto">
+      <input type="file" id="inputBase" accept=".json,.gz,application/json,application/gzip" class="input-oculto">
+
+      <div class="base-card">
+        <p id="baseSalvaInfo"></p>
+        <p id="pastaEscolhida">Nenhuma pasta escolhida ainda.</p>
+        <div>
+          <button class="btn btn-perigo" type="button" id="btnApagarSalva" hidden>
+            <svg class="ico ico-sm"><use href="#i-lixeira"/></svg> Apagar base salva
+          </button>
+        </div>
+      </div>
+
+      <p class="modal-status" id="statusDados"></p>
+
+      <div class="console">
+        <div class="console-topo"><span>Registro da importação</span><span id="logContador"></span></div>
+        <div class="log" id="logDados" aria-live="polite"></div>
+      </div>
+
+      <p class="modal-dica">
+        <svg class="ico" aria-hidden="true"><use href="#i-escudo"/></svg>
+        <span>
+          A base fica <strong>salva neste navegador</strong> e o painel abre pronto nas próximas
+          vezes. Para levá-la a outro computador sem as planilhas, use <strong>Exportar base</strong>
+          e, lá, <strong>Abrir arquivo de base</strong>.
+        </span>
+      </p>
+    </div>
+
+    <div class="modal-rodape">
+      <span>Pressione Esc para fechar</span>
+      <button class="btn btn-suave" type="button" id="btnFecharRodape">Fechar</button>
+    </div>
+  </div>
+</div>
+
+<div class="loading" id="carregando" hidden>
+  <div class="loading-card">
+    <div class="spinner" aria-hidden="true"></div>
+    <p id="carregandoTexto">Carregando a base salva…</p>
+  </div>
+</div>
+
+<div class="toast-host" id="toastHost" aria-live="polite"></div>
+
+<!-- ================================================================ bibliotecas (offline) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/plotly.js/4.0.0/plotly.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+
+<!-- ================================================================ configuração e utilitários -->
+<script src="js/config.js"></script>
+<script src="js/utils/texto.js"></script>
+<script src="js/utils/formato.js"></script>
+<script src="js/utils/emissor.js"></script>
+<script src="js/utils/uf.js"></script>
+
+<!-- ================================================================ MODEL -->
+<script src="js/models/PlanilhaModel.js"></script>
+<script src="js/models/CuboModel.js"></script>
+<script src="js/models/BaseSalvaModel.js"></script>
+<script src="js/models/FiltroModel.js"></script>
+<script src="js/models/PainelModel.js"></script>
+
+<!-- ================================================================ VIEW -->
+<script src="js/views/GraficoView.js"></script>
+<script src="js/views/LayoutView.js"></script>
+<script src="js/views/FiltroView.js"></script>
+<script src="js/views/ReceitaView.js"></script>
+<script src="js/views/LocalidadeView.js"></script>
+<script src="js/views/EstadoView.js"></script>
+<script src="js/views/ImportacaoView.js"></script>
+
+<!-- ================================================================ CONTROLLER -->
+<script src="js/controllers/DashboardController.js"></script>
+<script src="js/controllers/FiltroController.js"></script>
+<script src="js/controllers/ImportacaoController.js"></script>
+
+<!-- ================================================================ início -->
+<script src="js/app.js"></script>
+</body>
+</html>
